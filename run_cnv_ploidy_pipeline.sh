@@ -2,7 +2,7 @@
 #SBATCH --job-name=cnv_ploidy
 #SBATCH --output=slurm-cnv_ploidy-%j.out
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=32G
+#SBATCH --mem=64G
 #SBATCH --time=12:00:00
 #
 # CNV + ploidy pipeline for GC.PS.1929.WGS (Parental / Resistant / Fused NSCLC cell line WGS)
@@ -26,6 +26,24 @@
 # readCounter (HMMcopy utils; only needed for the ichorCNA step).
 
 set -euo pipefail
+
+### ---- Cluster environment modules -----------------------------------------
+# sbatch jobs start a fresh non-interactive shell -- it does NOT source your
+# .bashrc, so any `module load` you rely on interactively will NOT carry into
+# this job unless it's loaded explicitly here. If you see errors like
+# "ImportError: libffi.so.8: cannot open shared object file" or similar
+# missing-shared-library failures, it means Python/cnvkit/samtools/etc. are
+# resolving to a toolchain module that isn't actually loaded in this job.
+#
+# Find and uncomment/adjust the modules that match what's on PATH for you
+# interactively:
+#   module avail Python 2>&1
+#   module avail bcftools 2>&1
+#   module avail samtools 2>&1
+#
+# module load Python/3.11.5-GCCcore-13.2.0
+# module load bcftools/<version>
+# module load samtools/<version>
 
 ### ---- User-editable paths -------------------------------------------------
 
@@ -91,6 +109,20 @@ for name in "${!SAMPLES[@]}"; do
 
   cnr="${OUT_DIR}/cnvkit/$(basename "${bam}" .bam).cnr"
   cns="${OUT_DIR}/cnvkit/$(basename "${bam}" .bam).cns"
+
+  # `cnvkit.py batch` can die partway (e.g. a worker OOM-killed during the
+  # per-bin coverage pass) WITHOUT returning a nonzero exit code or printing
+  # any error -- it just silently produces no .cnr/.cns. Check explicitly
+  # here and stop with a clear message, instead of limping into `call` with
+  # a file that doesn't exist and getting a confusing pandas traceback.
+  if [[ ! -s "${cnr}" || ! -s "${cns}" ]]; then
+    echo "[FATAL] ${name}: cnvkit.py batch did not produce ${cnr} and/or ${cns}." >&2
+    echo "        This step is memory-heavy (coverage across ~1.8M WGS bins)" >&2
+    echo "        and most likely died from an OOM kill with no traceback." >&2
+    echo "        Check 'sacct -j \$SLURM_JOB_ID --format=MaxRSS' against --mem," >&2
+    echo "        and consider lowering -p/THREADS to reduce peak concurrent memory." >&2
+    exit 1
+  fi
 
   # Absolute copy number: purity fixed at 1.0 (pure cell line).
   # Ploidy left at default 2 here -- the notebook re-derives an empirical
