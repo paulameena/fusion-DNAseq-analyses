@@ -27,6 +27,7 @@
 
 set -euo pipefail
 
+<<<<<<< HEAD
 ### ---- Cluster environment modules -----------------------------------------
 # sbatch jobs start a fresh non-interactive shell -- it does NOT source your
 # .bashrc, so any `module load` you rely on interactively will NOT carry into
@@ -44,6 +45,9 @@ set -euo pipefail
 # module load Python/3.11.5-GCCcore-13.2.0
 # module load bcftools/<version>
 # module load samtools/<version>
+=======
+module load Python
+>>>>>>> de2c381 (updated run_cnv)
 
 ### ---- User-editable paths -------------------------------------------------
 
