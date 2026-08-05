@@ -1,0 +1,5 @@
+[markdup] parental: /mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS/bams/parental_deepWGS.bam -> /mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS/bams/rmdup_parental_deepWGS.bam
+/var/spool/slurm/job3688709/slurm_script: line 41: samtools: command not found
+/var/spool/slurm/job3688709/slurm_script: line 38: samtools: command not found
+/var/spool/slurm/job3688709/slurm_script: line 39: samtools: command not found
+/var/spool/slurm/job3688709/slurm_script: line 40: samtools: command not found
