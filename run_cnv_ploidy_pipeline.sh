@@ -44,7 +44,7 @@ set -euo pipefail
 module load Python/3.11.5-GCCcore-13.2.0
 module load BCFtools
 module load SAMtools
-
+module load R
 
 ### ---- User-editable paths -------------------------------------------------
 
