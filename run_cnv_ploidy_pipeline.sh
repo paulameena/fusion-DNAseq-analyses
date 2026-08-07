@@ -41,18 +41,19 @@ set -euo pipefail
 #   module avail bcftools 2>&1
 #   module avail samtools 2>&1
 #
-# module load Python/3.11.5-GCCcore-13.2.0
-# module load bcftools/<version>
-# module load samtools/<version>
+module load Python/3.11.5-GCCcore-13.2.0
+module load BCFtools
+module load SAMtools
+module load R
 
 ### ---- User-editable paths -------------------------------------------------
 
-PROJECT_DIR="$(pwd)"
+PROJECT_DIR="/mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS"
 BAM_DIR="${PROJECT_DIR}/bams"
 OUT_DIR="${PROJECT_DIR}/analysis/cnv_ploidy"
-REF_FASTA="/path/to/GRCh38.fa"                 # same reference used for alignment
-REFFLAT="/path/to/refFlat.hg38.txt"             # for cnvkit annotate, optional but recommended
-COMMON_SNPS_VCF="/path/to/gnomad.common_biallelic_snps.hg38.vcf.gz"  # for pseudo-BAF
+REF_FASTA="/mnt/vstor/SOM_CCCC_JGS25/shultesp/data/refdata/hg38.analysisSet.fa"    # same reference used for alignment
+REFFLAT=""    # for cnvkit annotate, optional but recommended
+COMMON_SNPS_VCF="/mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS/vcf/gnomad.common_biallelic_snps.hg38.vcf.gz"  # for pseudo-BAF
 
 # Set this to a public diploid WGS bam (e.g. NA12878 GIAB, aligned identically
 # to your samples) if you want a real (non-flat) CNVkit reference. Leave empty
@@ -60,7 +61,7 @@ COMMON_SNPS_VCF="/path/to/gnomad.common_biallelic_snps.hg38.vcf.gz"  # for pseud
 NORMAL_BAM=""
 
 # ichorCNA panel-of-normals / support files (ships with the ichorCNA R package)
-ICHOR_DIR="/path/to/ichorCNA"
+ICHOR_DIR="~/tools/ichorCNA"
 ICHOR_GC_WIG="${ICHOR_DIR}/inst/extdata/gc_hg38_1000kb.wig"
 ICHOR_MAP_WIG="${ICHOR_DIR}/inst/extdata/map_hg38_1000kb.wig"
 ICHOR_CENTROMERE="${ICHOR_DIR}/inst/extdata/GRCh38.GCA_000001405.2_centromere_acen.txt"

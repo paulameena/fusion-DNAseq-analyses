@@ -1,0 +1,61 @@
+[markdup] parental: /mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS/bams/parental_deepWGS.bam -> /mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS/bams/rmdup_parental_deepWGS.bam
+[bam_sort_core] merging from 18 files and 16 in-memory blocks...
+COMMAND: samtools markdup -@ 16 -r -s - /mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS/bams/rmdup_parental_deepWGS.bam
+READ: 605708493
+WRITTEN: 545473198
+EXCLUDED: 3928308
+EXAMINED: 601780185
+PAIRED: 601444602
+SINGLE: 335583
+DUPLICATE PAIR: 60142372
+DUPLICATE SINGLE: 92923
+DUPLICATE PAIR OPTICAL: 0
+DUPLICATE SINGLE OPTICAL: 0
+DUPLICATE NON PRIMARY: 0
+DUPLICATE NON PRIMARY OPTICAL: 0
+DUPLICATE PRIMARY TOTAL: 60235295
+DUPLICATE TOTAL: 60235295
+ESTIMATED_LIBRARY_SIZE: 1401656811
+
+[markdup] parental: done, 545473198 reads remaining
+[markdup] fused: /mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS/bams/fused_deepWGS.bam -> /mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS/bams/rmdup_fused_deepWGS.bam
+[bam_sort_core] merging from 19 files and 16 in-memory blocks...
+COMMAND: samtools markdup -@ 16 -r -s - /mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS/bams/rmdup_fused_deepWGS.bam
+READ: 634626013
+WRITTEN: 560776371
+EXCLUDED: 3640667
+EXAMINED: 630985346
+PAIRED: 630642928
+SINGLE: 342418
+DUPLICATE PAIR: 73744926
+DUPLICATE SINGLE: 104716
+DUPLICATE PAIR OPTICAL: 0
+DUPLICATE SINGLE OPTICAL: 0
+DUPLICATE NON PRIMARY: 0
+DUPLICATE NON PRIMARY OPTICAL: 0
+DUPLICATE PRIMARY TOTAL: 73849642
+DUPLICATE TOTAL: 73849642
+ESTIMATED_LIBRARY_SIZE: 1240969670
+
+[markdup] fused: done, 560776371 reads remaining
+[markdup] resistant: /mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS/bams/resistant_deepWGS.bam -> /mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS/bams/rmdup_resistant_deepWGS.bam
+[bam_sort_core] merging from 19 files and 16 in-memory blocks...
+COMMAND: samtools markdup -@ 16 -r -s - /mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS/bams/rmdup_resistant_deepWGS.bam
+READ: 626029817
+WRITTEN: 571284082
+EXCLUDED: 4053836
+EXAMINED: 621975981
+PAIRED: 621604450
+SINGLE: 371531
+DUPLICATE PAIR: 54648194
+DUPLICATE SINGLE: 97541
+DUPLICATE PAIR OPTICAL: 0
+DUPLICATE SINGLE OPTICAL: 0
+DUPLICATE NON PRIMARY: 0
+DUPLICATE NON PRIMARY OPTICAL: 0
+DUPLICATE PRIMARY TOTAL: 54745735
+DUPLICATE TOTAL: 54745735
+ESTIMATED_LIBRARY_SIZE: 1662439931
+
+[markdup] resistant: done, 571284082 reads remaining
+Done. rmdup_*.bam files are in /mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS/bams, ready for run_cnv_ploidy_pipeline.sh

@@ -24,11 +24,11 @@ set -euo pipefail
 
 ### ---- User-editable paths -------------------------------------------------
 
-PROJECT_DIR="$(pwd)"
+PROJECT_DIR="/mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS"
 FASTQ_DIR="${PROJECT_DIR}/Fastq"
 BAM_DIR="${PROJECT_DIR}/bams"
-REF_FASTA="/path/to/GRCh38.fa"          # same reference the CNV pipeline uses
-BWA_BIN="bwa-mem2"                       # or "bwa" if that's what's installed
+REF_FASTA="${PROJECT_DIR}/../refdata/hg38.analysisSet.fa"          # same reference the CNV pipeline uses
+BWA_BIN="bwa"                       # or "bwa" if that's what's installed
 
 # sample key -> fastq filename prefix (glob) and output bam basename suffix,
 # matching the SAMPLES map in run_cnv_ploidy_pipeline.sh
@@ -44,8 +44,6 @@ declare -A SAMPLE_OUT=(
 )
 
 THREADS="${SLURM_CPUS_PER_TASK:-16}"
-
-mkdir -p "${BAM_DIR}"
 
 ### ---- 0. Reference indices --------------------------------------------------
 
