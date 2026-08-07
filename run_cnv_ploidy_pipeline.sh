@@ -2,8 +2,8 @@
 #SBATCH --job-name=cnv_ploidy
 #SBATCH --output=slurm-cnv_ploidy-%j.out
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=64G
-#SBATCH --time=12:00:00
+#SBATCH --mem=96G
+#SBATCH --time=16:00:00
 #
 # CNV + ploidy pipeline for GC.PS.1929.WGS (Parental / Resistant / Fused NSCLC cell line WGS)
 #
@@ -74,6 +74,13 @@ declare -A SAMPLES=(
 
 THREADS="${SLURM_CPUS_PER_TASK:-8}"
 
+# cnvkit.py batch's per-bin coverage pass is the memory-heavy step (each
+# worker process holds its own chunk of BAM-processing state) -- it has
+# already OOM'd twice at 8 and 11 workers even after raising --mem. Keep its
+# parallelism lower and independent of THREADS (which other, lighter steps
+# below still use at full width) rather than raising --mem indefinitely.
+CNVKIT_THREADS=4
+
 mkdir -p "${OUT_DIR}"/{cnvkit,baf,ichorcna,seg}
 
 ### ---- 1. CNVkit reference --------------------------------------------------
@@ -87,7 +94,7 @@ if [[ -n "${NORMAL_BAM}" ]]; then
     -g "${PROJECT_DIR}/genome.antitarget.bed" \
     --annotate "${REFFLAT}" \
     --output-reference "${OUT_DIR}/cnvkit/reference.cnn" \
-    -p "${THREADS}" \
+    -p "${CNVKIT_THREADS}" \
     --output-dir "${OUT_DIR}/cnvkit"
   CNVKIT_REF="${OUT_DIR}/cnvkit/reference.cnn"
 else
@@ -103,7 +110,7 @@ for name in "${!SAMPLES[@]}"; do
 
   cnvkit.py batch "${bam}" \
     -r "${CNVKIT_REF}" \
-    -p "${THREADS}" \
+    -p "${CNVKIT_THREADS}" \
     -d "${OUT_DIR}/cnvkit" \
     --scatter --diagram
 
