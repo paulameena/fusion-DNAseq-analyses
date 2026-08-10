@@ -53,7 +53,7 @@ BAM_DIR="${PROJECT_DIR}/bams"
 OUT_DIR="${PROJECT_DIR}/analysis/cnv_ploidy"
 REF_FASTA="/mnt/vstor/SOM_CCCC_JGS25/shultesp/data/refdata/hg38.analysisSet.fa"    # same reference used for alignment
 REFFLAT=""    # for cnvkit annotate, optional but recommended
-COMMON_SNPS_VCF="/mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS/vcf/gnomad.common_biallelic_snps.hg38.vcf.gz"  # for pseudo-BAF
+COMMON_SNPS_VCF="/mnt/vstor/SOM_CCCC_JGS25/shultesp/data/GC.PS.1929.WGS/vcf/gnomad.common_biallelic_snps.hg38.filtered.vcf.gz"  # for pseudo-BAF -- filtered to contigs present in REF_FASTA (no ALT contigs), see scripts/rerun_baf.sh
 
 # Set this to a public diploid WGS bam (e.g. NA12878 GIAB, aligned identically
 # to your samples) if you want a real (non-flat) CNVkit reference. Leave empty
