@@ -3,7 +3,7 @@
 #SBATCH --output=slurm-rerun_baf-%j.out
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=16G
-#SBATCH --time=4:00:00
+#SBATCH --time=12:00:00
 #
 # Standalone rerun of just the pseudo-BAF step from run_cnv_ploidy_pipeline.sh.
 # The CNVkit steps (coverage/segmentation/call) already completed successfully
